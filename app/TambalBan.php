@@ -11,6 +11,6 @@ class TambalBan extends Model
     protected $primaryKey = 'id_tambal_ban';
 
     protected $fillable = [
-        'nama', 'alamat', 'telp', 'deskripsi', 'latitude', 'longitude'
+        'id_tambal_ban','nama', 'alamat', 'telp', 'deskripsi', 'latitude', 'longitude'
     ]; 
 }

@@ -1,19 +1,18 @@
-@extends('admin.layouts.app')
-
-@section('content')
-@php
+<?php $__env->startSection('content'); ?>
+<?php
 $judul = $data['judul'];
-@endphp
+?>
 <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      {{ $judul }}
+      <?php echo e($judul); ?>
+
     </h1>
     <ol class="breadcrumb">
-      <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> Beranda</a></li>
+      <li><a href="<?php echo e(url('admin')); ?>"><i class="fa fa-dashboard"></i> Beranda</a></li>
       <li class="active">Data Tambal Ban</li>
     </ol>
   </section>
@@ -22,15 +21,15 @@ $judul = $data['judul'];
   <section class="content">
     <div class="row">
       <div class="col-xs-7">
-        @if(session()->get('sukses'))
+        <?php if(session()->get('sukses')): ?>
         <div class="alert alert-success alert-dismissible">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          {{ session()->get('sukses') }}  
+          <?php echo e(session()->get('sukses')); ?>  
         </div>
-        @endif
+        <?php endif; ?>
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">{{ $judul }}</h3>
+            <h3 class="box-title"><?php echo e($judul); ?></h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
@@ -44,21 +43,21 @@ $judul = $data['judul'];
                 </tr>
               </thead>
               <tbody>
-                @foreach($data['tambalban'] as $tambalban)
+                <?php $__currentLoopData = $data['tambalban']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tambalban): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr>
-                  <td><a href="{{ url('admin/tambalban/detail/'.$tambalban->id_tambal_ban) }}">{{ $tambalban->id_tambal_ban }}</a></td>
-                  <td>{{ $tambalban->nama }}</td>
-                  <td>{{ $tambalban->alamat }}</td>
+                  <td><a href="<?php echo e(url('admin/tambalban/detail/'.$tambalban->id_tambal_ban)); ?>"><?php echo e($tambalban->id_tambal_ban); ?></a></td>
+                  <td><?php echo e($tambalban->nama); ?></td>
+                  <td><?php echo e($tambalban->alamat); ?></td>
                   <td>
-                  	<a href="{{ url('admin/tambalban/sunting/'.$tambalban->id_tambal_ban) }}" class="btn btn-warning">
+                  	<a href="<?php echo e(url('admin/tambalban/sunting/'.$tambalban->id_tambal_ban)); ?>" class="btn btn-warning">
                   		<i class="fa fa-edit"></i>
                   	</a>
-                  	<a onclick="return confirm('Apakah anda yakin ingin menghapus data berikut?');" href="{{ url('admin/tambalban/hapus/'.$tambalban->id_tambal_ban) }}" class="btn btn-danger">
+                  	<a onclick="return confirm('Apakah anda yakin ingin menghapus data berikut?');" href="<?php echo e(url('admin/tambalban/hapus/'.$tambalban->id_tambal_ban)); ?>" class="btn btn-danger">
                   		<i class="fa fa-trash"></i>
                   	</a>
                   </td>
                 </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </tfoot>
             </table>
           </div>
@@ -76,42 +75,70 @@ $judul = $data['judul'];
           <!-- /.box-header -->
           <!-- form start -->
           <!-- form start -->
-          <form method="post" action="{{ url('admin/tambalban/simpan') }}">
+          <form method="post" action="<?php echo e(url('admin/tambalban/simpan')); ?>">
             
-            @csrf
+            <?php echo csrf_field(); ?>
 
             <div class="box-body">
               <div class="form-group col-sm-12">
                 <label for="nama">Nama</label>
-               <input type="text" class="form-control col-sm-6" id="nama" name="nama" value="{{ old('nama') }}" required>
-                @error('nama')
-                <span class="help-block">{{ $message }}</span>
-                @enderror
+               <input type="text" class="form-control col-sm-6" id="nama" name="nama" value="<?php echo e(old('nama')); ?>" required>
+                <?php $__errorArgs = ['nama'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="help-block"><?php echo e($message); ?></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
               </div>
               
               <div class="form-group col-sm-12">
                 <label for="alamat">Alamat</label>
-                <textarea class="form-control col-xs-6" id="alamat" name="alamat" required>{{ old('alamat') }}</textarea>
-                @error('alamat')
-                <span class="help-block">{{ $message }}</span>
-                @enderror 
+                <textarea class="form-control col-xs-6" id="alamat" name="alamat" required><?php echo e(old('alamat')); ?></textarea>
+                <?php $__errorArgs = ['alamat'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="help-block"><?php echo e($message); ?></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?> 
               </div>
 
               <br><br>
               <div class="form-group col-sm-12">
                 <label for="telp">Telp</label>
-                <input type="tel" class="form-control col-xs-6" id="telp" name="telp" value="{{ old('telp') }}" required>
-                @error('telp')
-                <span class="help-block">{{ $message }}</span>
-                @enderror
+                <input type="tel" class="form-control col-xs-6" id="telp" name="telp" value="<?php echo e(old('telp')); ?>" required>
+                <?php $__errorArgs = ['telp'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="help-block"><?php echo e($message); ?></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
               </div>
 
               <div class="form-group col-sm-12">
                 <label for="deskripsi col-xs-12">Deskripsi</label>
-                <textarea class="form-control col-xs-6" id="deskripsi" name="deskripsi" required>{{ old('deskripsi') }}</textarea> 
-                @error('deskripsi')
-                <span class="help-block">{{ $message }}</span>
-                @enderror
+                <textarea class="form-control col-xs-6" id="deskripsi" name="deskripsi" required><?php echo e(old('deskripsi')); ?></textarea> 
+                <?php $__errorArgs = ['deskripsi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                <span class="help-block"><?php echo e($message); ?></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
               </div>
 
               <div class="row">
@@ -128,17 +155,31 @@ $judul = $data['judul'];
               <div class="row">
                 <div class="form-group col-sm-12">
                   <div class="col-sm-6">
-                    <input type="number" step="any" name="latitude" id="latitude" class="form-control" value="{{ old('latitude') }}" required>
-                    @error('latitude')
-                    <span class="help-block">{{ $message }}</span>
-                    @enderror
+                    <input type="number" step="any" name="latitude" id="latitude" class="form-control" value="<?php echo e(old('latitude')); ?>" required>
+                    <?php $__errorArgs = ['latitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <span class="help-block"><?php echo e($message); ?></span>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                   </div>
 
                   <div class="col-sm-6">
-                    <input type="number" step="any" name="longitude" id="longitude" class="form-control" value="{{ old('longitude') }}" required>
-                    @error('longitude')
-                    <span class="help-block">{{ $message }}</span>
-                    @enderror
+                    <input type="number" step="any" name="longitude" id="longitude" class="form-control" value="<?php echo e(old('longitude')); ?>" required>
+                    <?php $__errorArgs = ['longitude'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <span class="help-block"><?php echo e($message); ?></span>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                   </div>
                 </div>
               </div>
@@ -223,4 +264,5 @@ var latLng = new google.maps.LatLng(-7.2536661401982006,112.75969753125003);
  updateMarkerPosition(marker.getPosition());
 });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\projek\htdocs\pemweb\resources\views/admin/tambalban/index.blade.php ENDPATH**/ ?>

@@ -21,7 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('admin/tambalban', 'Admin\TambalBanController@index')->name('admin/tambalban');
 Route::get('admin/tambalban/tambah', 'Admin\TambalBanController@create')->name('admin/tambalban/tambah');
-Route::post('admin/tambalban/tambah', 'Admin\TambalBanController@store')->name('admin/tambalban/tambah');
-Route::get('admin/tambalban/ubah', 'Admin\TambalBanController@edit')->name('admin/tambalban/ubah');
-Route::post('admin/tambalban/ubah', 'Admin\TambalBanController@update')->name('admin/tambalban/ubah');
-Route::post('admin/tambalban/ubah', 'Admin\TambalBanController@update')->name('admin/tambalban/ubah');
+Route::post('admin/tambalban/simpan', 'Admin\TambalBanController@store')->name('admin/tambalban/simpan');
+Route::get('admin/tambalban/sunting/{id}', 'Admin\TambalBanController@edit')->name('admin/tambalban/ubah/{id}');
+Route::post('admin/tambalban/perbarui/{id}', 'Admin\TambalBanController@update')->name('admin/tambalban/perbarui/{id}');
+Route::get('admin/tambalban/detail/{id}', 'Admin\TambalBanController@show');
+Route::get('admin/tambalban/hapus/{id}', 'Admin\TambalBanController@destroy')->name('admin/tambalban/hapus/{id}');
