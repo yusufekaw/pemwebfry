@@ -28,6 +28,8 @@ class DashboardController extends Controller
     {
         //
         //
+        $data['rata_latitude'] = 0;
+        $data['rata_longitude'] = 0;
         //cari id user login
         $id_user = Auth::user()->id_user;
         //cari hak akses user login

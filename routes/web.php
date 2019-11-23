@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//admin
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('admin', 'Admin\DashboardController@index')->name('admin');
@@ -38,3 +40,7 @@ Route::post('admin/tambalban/jam_operasional/perbarui/', 'Admin\JamOperasionalCo
 
 //Route::get('admin/tambalban/{id}/jam_operasional/hapus/{id}', [
 //'as' => 'admin/tambalban/', 'uses' => 'Toko\KategoriController@destroy']);
+
+//web enduser
+Route::get('web', 'WebController@depan')->name('web');
+Route::post('peta', 'WebController@peta')->name('peta');

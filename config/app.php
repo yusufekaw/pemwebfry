@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\DayServiceProvider::class,
+        App\Providers\HaversineServiceProvider::class,
 
     ],
 
@@ -228,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Day' => App\Helpers\Day::class,
+        'Haversine' => App\Helpers\Haversine::class,
 
     ],
 
