@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\TambalBan;
+use App\JamOperasional;
 use Illuminate\Http\Request;
+
+use Intervention\Image\ImageManagerStatic as Image;
+use File;
+use Auth;
 
 class TambalBanController extends Controller
 {
@@ -21,10 +26,26 @@ class TambalBanController extends Controller
     public function index()
     {
         //
-        $data = [
-            'tambalban' => TambalBan::all(), 
-            'judul' => 'Semua Tambal Ban', 
-        ];
+        //cari id user login
+        $id_user = Auth::user()->id_user;
+        //cari hak akses user login
+        $role = Auth::user()->role;
+        //judul halaman
+        $data['judul'] = 'semua tambal ban';
+        //inisialisasi awal data tambalban
+        $data['tambalban'] = null;
+        //hak akses view tambal ban
+        //jika user login = tambalban
+        if($role=='tambalban')
+        {
+            //data tambal ban berdasarkan relasi user
+            $data['tambalban'] = TambalBan::where('id_user',$id_user)->get();
+        }
+        else
+        {            
+            //user admin dan superadmin manmpilkan semua data tambal ban
+            $data['tambalban'] = TambalBan::all();
+        }
 
         return view('admin.tambalban.index', compact('data'));
     }
@@ -37,6 +58,12 @@ class TambalBanController extends Controller
     public function create()
     {
         //
+        $data = [
+            'tambalban' => TambalBan::all(), 
+            'judul' => 'Tambah Tambal Ban', 
+        ];
+
+        return view('admin.tambalban.tambah', compact('data'));
     }
 
     /**
@@ -50,23 +77,38 @@ class TambalBanController extends Controller
         //
         $id_tambal_ban = 'tb'.crc32(date('ymdhis'));
 
+        File::makeDirectory('img/tambalban/'.$id_tambal_ban.'/', 0777, true, true);
+
         $this->validate($request, [
             'nama' => 'required',
             'alamat' => 'required',
             'telp' => 'required',
+            'foto' => 'required|file|image|max:3000',
             'deskripsi' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
+
+        //file upload
+        $img = $request->file('foto');
+        $extension = $img->getClientOriginalExtension();  
+        $destinationpath = 'img/tambalban/'.$id_tambal_ban.'/';
+        $img_name = $id_tambal_ban.'.'.$extension;
+        //resize gambar
+        $image_resize = Image::make($img->getRealPath());              
+        $image_resize->resize(300, 300);
+        $image_resize->save(public_path($destinationpath.''.$img_name));
 
         TambalBan::create([
             'id_tambal_ban' => $id_tambal_ban,
             'nama' => $request->nama,
             'alamat' => $request->alamat,
             'telp' => $request->telp,
+            'foto' => $destinationpath.''.$img_name,
             'deskripsi' => $request->deskripsi,
             'latitude' => $request->latitude,
-            'longitude' => $request->longitude
+            'longitude' => $request->longitude,
+            'id_user' => Auth::user()->id_user
         ]);
 
         return redirect()->route('admin/tambalban')->with('sukses', 'Berhasil menambahkan data baru!');
@@ -82,9 +124,12 @@ class TambalBanController extends Controller
     {
         //
         $tambalban = TambalBan::find($id);
+        $tambalbanall = TambalBan::all();
         $data = [
             'tambalban' => $tambalban,
-            'judul' => 'Detail '.$tambalban->nama
+            'tambalbanall' => json_encode($tambalbanall),
+            'judul' => 'Detail '.$tambalban->nama,
+            'jam_operasional' => JamOperasional::where('id_tambal_ban',$id)->orderBy('order', 'asc')->orderBy('jam_buka','asc')->get(),
         ];
         return view('admin/tambalban/detail', compact('data'));
     }
@@ -117,8 +162,31 @@ class TambalBanController extends Controller
     {
         //
         $tambalban = TambalBan::find($id);
-        $tambalban->update($request->all());
-        return redirect()->route('admin/tambalban')->with('sukses', 'Berhasil meperbarui data!');
+        
+         $this->validate($request, [
+            'nama' => 'required',
+            'alamat' => 'required',
+            'telp' => 'required',
+            'deskripsi' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+        ]);
+
+        $tambalban->update([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'telp' => $request->telp,
+            'deskripsi' => $request->deskripsi,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
+        ]);
+
+        $links = session()->has('links') ? session('links') : [];
+        $currentLink = request()->path(); // Getting current URI like 'category/books/'
+        array_unshift($links, $currentLink); // Putting it in the beginning of links array
+        session(['links' => $links]);
+        
+        return redirect('admin/tambalban')->with('sukses', 'Berhasil meperbarui data!');
     }
 
     /**
@@ -133,5 +201,29 @@ class TambalBanController extends Controller
         $tambalban = TambalBan::find($id);
         $tambalban->delete();
         return redirect()->route('admin/tambalban')->with('sukses', 'Berhasil menghapus data!'); 
+    }
+
+    public function update_foto(Request $request)
+    {
+        $id_tambal_ban = $request->id_tambal_ban;
+
+        File::makeDirectory('img/tambalban/'.$id_tambal_ban.'/', 0777, true, true);
+
+        //file upload
+        $img = $request->file('foto');
+        $extension = $img->getClientOriginalExtension();  
+        $destinationpath = 'img/tambalban/'.$id_tambal_ban.'/';
+        $img_name = $id_tambal_ban.'.'.$extension;
+        //resize gambar
+        $image_resize = Image::make($img->getRealPath());              
+        $image_resize->resize(300, 300);
+        $image_resize->save(public_path($destinationpath.''.$img_name));
+
+        $tambalban = TambalBan::find($id_tambal_ban);
+        $tambalban->update([
+            'foto' => $destinationpath.''.$img_name,
+        ]);
+
+        return redirect('admin/tambalban/detail/'.$id_tambal_ban)->with('sukses', 'Foto Berhasil diganti');
     }
 }

@@ -77,4 +77,23 @@
         </main>
     </div>
 </body>
+
+<script>
+var latitude = document.getElementById("latitude");
+var longitude = document.getElementById("longitude");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  document.getElementById("latitude").value = position.coords.latitude;
+  document.getElementById("longitude").value = position.coords.longitude;
+}
+</script>
+
 </html>

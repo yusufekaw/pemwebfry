@@ -64,39 +64,27 @@
 
               <div class="form-group col-sm-12">
                 <label for="deskripsi col-xs-12">Deskripsi</label>
-                <textarea class="form-control col-xs-6" id="deskripsi" name="deskripsi" required>{{ $tambalban->deskripsi }}</textarea> 
+                <textarea class="textarea" name="deskripsi" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;" required>{{ $tambalban->deskripsi }}</textarea> 
                 @error('deskripsi')
                 <span class="help-block">{{ $message }}</span>
                 @enderror
               </div>
 
-              <div class="row">
-                <div class="form-group col-sm-12">
-                  <div class="col-sm-6">
-                    <label for="latitude">Latitude</label>
-                  </div>
-                  <div class="col-sm-6">
-                    <label for="longitude">Longitude</label>
-                  </div>
-                </div>
-              </div>
               
-              <div class="row">
-                <div class="form-group col-sm-12">
-                  <div class="col-sm-6">
-                    <input type="number" step="any" name="latitude" id="latitude" class="form-control" value="{{ $tambalban->latitude }}" required>
-                    @error('latitude')
-                    <span class="help-block">{{ $message }}</span>
-                    @enderror
-                  </div>
+              <div class="form-group col-sm-12">
+                <label for="nama">Latitude</label>
+                <input type="text" name="latitude" id="latitude" class="form-control" value="{{  $tambalban->latitude }}" readonly="readonly" required>
+                @error('latitude')
+                <span class="help-block">{{ $message }}</span>
+                @enderror
+              </div>
 
-                  <div class="col-sm-6">
-                    <input type="number" step="any" name="longitude" id="longitude" class="form-control" value="{{ $tambalban->longitude }}" required>
-                    @error('longitude')
-                    <span class="help-block">{{ $message }}</span>
-                    @enderror
-                  </div>
-                </div>
+              <div class="form-group col-sm-12">
+                <label for="nama">Longitude</label>
+               <input type="text" class="form-control col-sm-6" name="longitude" id="longitude" class="form-control" value="{{ $tambalban->latitude }}" readonly="readonly" required>
+                @error('longitude')
+                <span class="help-block">{{ $message }}</span>
+                @enderror
               </div>
             
             </div>
@@ -104,10 +92,13 @@
 
             <div class="box-footer">
               <button type="submit" class="btn btn-primary"><span class="fa fa-hdd-o"></span> Simpan Perubahan </button>
-              &nbsp;
-              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
-                <span class="fa fa-map"></span> Cari Koordinat di Peta
-              </button>
+              
+              <div class="pull-right">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-default">
+                <span class="fa fa-map"></span> Cari Koordinat di Map
+                </button>
+              </div>
+              
             </div>
 
           </form>

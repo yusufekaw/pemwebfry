@@ -29,6 +29,14 @@
   <link rel="stylesheet" href="{{ asset('adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
    <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.6/css/fixedHeader.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="{{ asset('adminlte/plugins/timepicker/bootstrap-timepicker.min.css') }}">
+
+
+
   <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('adminlte/bower_components/select2/dist/css/select2.min.css') }}">
 
@@ -104,23 +112,71 @@
 <!-- DataTables -->
 <script src="{{ asset('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.6/js/dataTables.fixedHeader.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
+
 <!-- Select2 -->
 <script src="{{ asset('adminlte/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
 <!-- CK Editor -->
 <script src="{{ asset('adminlte/bower_components/ckeditor/ckeditor.js') }}"></script>
+
+<!-- bootstrap time picker -->
+<script src="{{ asset('adminlte/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
 
 <script>
   $(function () {
     $('#example1').DataTable()
     $('#example2').DataTable({
       'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
+      'lengthChange': true,
+      'searching'   : true,
       'ordering'    : true,
       'info'        : true,
-      'autoWidth'   : false
+      'autoWidth'   : true,
+      'responsive'  : true
     })
+    new $.fn.dataTable.FixedHeader( table );
   })
+</script>
+
+<script type="text/javascript">
+  $('#jam_buka').timepicker({
+    minuteStep: 1,
+    //template: 'modal',
+    appendWidgetTo: 'body',
+    //showSeconds: true,
+    showMeridian: false,
+    defaultTime: false
+  });
+</script>
+
+<script type="text/javascript">
+  $('#jam_tutup').timepicker({
+    minuteStep: 1,
+    //template: 'modal',
+    appendWidgetTo: 'body',
+    //showSeconds: true,
+    showMeridian: false,
+    defaultTime: false
+  });
+</script>
+
+<script>  
+  function enable_disable() { 
+    $("input").prop('disabled', false); 
+  } 
+</script> 
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#btn1').click(function () {
+      $('input').attr('disabled', 'disabled');
+    });
+    $('#btn2').click(function () {
+     $('input').removeAttr('disabled');
+   });
+  });
 </script>
 
 </body>

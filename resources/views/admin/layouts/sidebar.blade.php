@@ -17,31 +17,22 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li><a href="{{ url('admin') }}"><i class="fa fa-dashboard"></i> <span>Dashbooard</span></a></li>
-        @if(Auth::user()->role=='superadmin')
-        <li><a href="{{ url('admin/useradmin') }}"><i class="fa fa-user"></i> <span>User Admin</span></a></li>
+        @if(Auth::user()->role!='tambalban')
+        <li><a href="{{ url('admin/user') }}"><i class="fa fa-user"></i> <span>User</span></a></li>
         @endif
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-tags"></i> <span>Katalog</span>
+            <i class="fa fa-circle-o"></i> <span>Tambal Ban</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ url('admin/kategori') }}"><i class="fa fa-folder"></i> Kategori</a></li>
-            <li class="treeview">
-              <a href="#"><i class="fa fa-archive"></i> Produk
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="{{ url('admin/produk') }}"><i class="fa fa-search"></i> Semua Produk</a></li>
-                <li><a href="{{ url('admin/produk/add') }}"><i class="fa fa-plus"></i> Tambah Produk</a></li>
-              </ul>
-            </li>
+            <li><a href="{{ url('admin/tambalban') }}"><i class="fa fa-search"></i>Semua Data</a></li>
+            <li><a href="{{ url('admin/tambalban/tambah') }}"><i class="fa fa-plus"></i> Tambah Baru</a></li>
           </ul>
-        </li>
+        </li></li>
+        
 
         
       </ul>
