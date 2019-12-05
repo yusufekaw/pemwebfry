@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 use Haversine;
 use DB;
 
+
 class WebController extends Controller
 {
     public function depan()
     {
+        
         return view('web.index');
     }
 
@@ -78,10 +80,29 @@ class WebController extends Controller
         //return view('web.peta', compact('data'));
     }
 
+    public function test(Request $request)
+    {
+        $kordinate = TambalBan::all();
+        return view('web.peta', ['kordinate'=>$kordinate, 'latitude'=>$request->latitude, 'longitude'=>$request->longitude]);
+    }
     public function daftar()
     {
-        
-    }    
+        // $peta= TambalBan::all();
+        $peta=DB::table('tambal_bans')->paginate(10);
+        return view('web.daftarpeta',['peta'=>$peta]);
+    }
+    public function cari(Request $request)
+    {
+	// menangkap data pencarian
+	$cari = $request->cari;
+ 	
+	$peta = DB::table('tambal_bans')
+    ->where('nama','like',"%".$cari."%")
+    ->orwhere('alamat','like',"%".$cari."%")
+	->paginate();
+    	// mengirim data peta ke view pencarian
+	return view('web.daftarpeta',['peta' => $peta]);
+    }  
     /**
      * Display a listing of the resource.
      *

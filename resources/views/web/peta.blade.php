@@ -1,35 +1,59 @@
-<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
-@php 
-  $tambalban = $data['tambalban'];
-@endphp
+<html>
+    <head>
+        <title>Bootstrap & Google maps Tutorial by Bootstrapious.com</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href='custom.css' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
 
-<div id="googleMap" style="max-width:100%;height:100%;"></div>
-  
+        <div class="container">
 
-<script src="http://maps.googleapis.com/maps/api/js"></script>
-<script>
-function initialize() {
-  
-  var json = {!! $data['tambalban'] !!};
+            <div class="row">
 
-  var propertiPeta = {
-    center:new google.maps.LatLng({!! $data['latitude'] !!},{!! $data['longitude'] !!}),
-    zoom:15,
-    mapTypeId:google.maps.MapTypeId.ROADMAP
-  };
-  
-  var peta = new google.maps.Map(document.getElementById("googleMap"), propertiPeta);
-  
-  // membuat Marker
-  for(var i = 0; i < json.length; i++) {
-  var obj = json[i];
-  var marker=new google.maps.Marker({
-      position: new google.maps.LatLng(obj.latitude,obj.longitude),
-      map: peta
-  });
-}
+                <div class="col-lg-8 col-lg-offset-2">
 
-}
+                    <h1>Google maps & Bootstrap tutorial from <a href="http://bootstrapious.com">Bootstrapious.com</a></h1>
 
-google.maps.event.addDomListener(window, 'load', initialize);
-</script>
+                    <p class="lead">This is a demo for our tutorial showing you how to add a custom styled Google maps into a Bootstrap page.</p>
+
+                    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+
+                    <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                    
+                </div>
+
+            </div> 
+
+        </div> 
+
+        <div id="map"></div>
+
+        <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ"></script>
+        <script type="text/javascript">
+            $(function () {
+
+    function initMap() {
+
+        var location = new google.maps.LatLng(50.0875726, 14.4189987);
+
+        var mapCanvas = document.getElementById('map');
+        var mapOptions = {
+            center: location,
+            zoom: 16,
+            panControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+    }
+
+    google.maps.event.addDomListener(window, 'load', initMap);
+});
+        </script>
+    </body>
+</html>
