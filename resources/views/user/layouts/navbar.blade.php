@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
   <a class="navbar-brand text-white" href="#"><b>Tambal Ban Online</b></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -10,7 +10,7 @@
         <a class="nav-link" href="{{ url('peta') }}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('peta/daftarlokasi') }}">Daftar Lokasi</a>
+        <a class="nav-link" href="{{ url('peta/daftarlokasi/') }}">Daftar Lokasi</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">About</a>

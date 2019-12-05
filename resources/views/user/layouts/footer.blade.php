@@ -1,3 +1,3 @@
-<nav class="navbar bg-dark">
+<footer class="navbar fixed-bottom bg-dark">
   <p class="text-light">© 2019 ITATS All Right Reserved</p>
-</nav>
+</footer>

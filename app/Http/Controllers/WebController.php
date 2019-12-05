@@ -18,7 +18,13 @@ class WebController extends Controller
 
     public function peta(Request $request)
     {
-        $datass = [];
+        $latitude_user = $data['latitude_user'] = $request->latitude;
+        $longitude_user = $data['longitude_user'] = $request->longitude;
+        $data['tambalban'] = Tambalban::select(DB::raw("tambal_bans.*,( 6371 * acos( cos( radians($latitude_user) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians($longitude_user) ) + sin( radians($latitude_user) ) * sin( radians( latitude ) ) ) ) AS jarak, latitude, longitude, nama, deskripsi, telp, foto"))
+                ->orderBy('jarak', 'asc')
+                ->get();
+        return view('web.peta2', compact('data'));
+        /*$datass = [];
         $datas = array();
         $datas['nama'] = [];
         $datas['jarak'] = [];
@@ -82,8 +88,13 @@ class WebController extends Controller
 
     public function test(Request $request)
     {
-        $kordinate = TambalBan::all();
-        return view('web.peta', ['kordinate'=>$kordinate, 'latitude'=>$request->latitude, 'longitude'=>$request->longitude]);
+        //return $request->all();
+        $latitude_user = $data['latitude_user'] = $request->latitude;
+        $longitude_user = $data['longitude_user'] = $request->longitude;
+        $data['tambalban'] = Tambalban::select(DB::raw("tambal_bans.*,( 6371 * acos( cos( radians($latitude_user) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians($longitude_user) ) + sin( radians($latitude_user) ) * sin( radians( latitude ) ) ) ) AS jarak, latitude, longitude, nama, deskripsi, telp, foto"))
+                ->orderBy('jarak', 'asc')
+                ->get();
+        return view('web.peta', compact('data'));
     }
     public function daftar()
     {

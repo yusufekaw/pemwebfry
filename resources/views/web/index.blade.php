@@ -25,7 +25,7 @@
 
 <body>
 
-<form method="post" id="kirim" action="{{ url('peta') }}">
+<form method="get" id="kirim" action="{{ url('peta') }}">
 @csrf
 <input type="hidden" name="latitude" id="latitude">
 <input type="hidden" name="longitude" id="longitude">
@@ -99,9 +99,11 @@ function getLocation() {
 
 function showPosition(position) {
   //x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
-  document.getElementById("latitude").value = position.coords.latitude;
-  document.getElementById("longitude").value = position.coords.longitude;
-  document.getElementById("kirim").submit();
+  var lat, lon;
+  lat = document.getElementById("latitude").value = position.coords.latitude;
+  lon = document.getElementById("longitude").value = position.coords.longitude;
+  //document.getElementById("kirim").submit();
+  location.replace("{!! url('peta2?latitude="+lat+"&longitude="+lon+"') !!}")
 }
 </script>
 
