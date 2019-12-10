@@ -1,3 +1,7 @@
+@php
+  $latitude_user = $data['latitude_user'];
+  $longitude_user = $data['longitude_user'];
+@endphp
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
   <a class="navbar-brand text-white" href="#"><b>Tambal Ban Online</b></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,7 +14,7 @@
         <a class="nav-link" href="{{ url('peta') }}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url('peta/daftarlokasi/') }}">Daftar Lokasi</a>
+        <a class="nav-link" href="{{ url('daftarlokasi?latitude='.$latitude_user.'&longitude='.$longitude_user) }}">Daftar Lokasi</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">About</a>

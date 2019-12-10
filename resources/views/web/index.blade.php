@@ -103,7 +103,7 @@ function showPosition(position) {
   lat = document.getElementById("latitude").value = position.coords.latitude;
   lon = document.getElementById("longitude").value = position.coords.longitude;
   //document.getElementById("kirim").submit();
-  location.replace("{!! url('peta2?latitude="+lat+"&longitude="+lon+"') !!}")
+  location.replace("{!! url('peta?latitude="+lat+"&longitude="+lon+"') !!}")
 }
 </script>
 

@@ -23,7 +23,7 @@ class WebController extends Controller
         $data['tambalban'] = Tambalban::select(DB::raw("tambal_bans.*,( 6371 * acos( cos( radians($latitude_user) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians($longitude_user) ) + sin( radians($latitude_user) ) * sin( radians( latitude ) ) ) ) AS jarak, latitude, longitude, nama, deskripsi, telp, foto"))
                 ->orderBy('jarak', 'asc')
                 ->get();
-        return view('web.peta2', compact('data'));
+        return view('web.peta', compact('data'));
         /*$datass = [];
         $datas = array();
         $datas['nama'] = [];
@@ -96,12 +96,17 @@ class WebController extends Controller
                 ->get();
         return view('web.peta', compact('data'));
     }
-    public function daftar()
+    public function daftarlokasi(Request $request)
     {
         // $peta= TambalBan::all();
-        $peta=DB::table('tambal_bans')->paginate(10);
-        return view('web.daftarpeta',['peta'=>$peta]);
+        $latitude_user = $data['latitude_user'] = $request->latitude;
+        $longitude_user = $data['longitude_user'] = $request->longitude;
+        $data['tambalban'] = Tambalban::select(DB::raw("tambal_bans.*,( 6371 * acos( cos( radians($latitude_user) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians($longitude_user) ) + sin( radians($latitude_user) ) * sin( radians( latitude ) ) ) ) AS jarak, latitude, longitude, nama, deskripsi, telp, foto"))
+                ->orderBy('jarak', 'asc')
+                ->get();
+        return view('web.daftarlokasi', compact('data'));
     }
+
     public function cari(Request $request)
     {
 	// menangkap data pencarian

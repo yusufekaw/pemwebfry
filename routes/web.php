@@ -48,8 +48,10 @@ Route::post('admin/tambalban/jam_operasional/perbarui/', 'Admin\JamOperasionalCo
 //web enduser
 Route::get('web', 'WebController@depan');
 //Route::post('peta', 'WebController@test');
-Route::get('peta', 'WebController@test');
-Route::get('peta2', 'WebController@peta');
-Route::get('peta/daftarlokasi', 'WebController@daftar');
+Route::get('peta', 'WebController@peta');
+//Route::get('peta', 'WebController@test');
+//Route::get('peta2', 'WebController@peta');
+//Route::get('peta/daftarlokasi', 'WebController@daftar');
+Route::get('daftarlokasi', 'WebController@daftarlokasi');
 Route::get('peta/cari', 'WebController@cari');
 // Route::post('peta', 'WebController@peta')->name('peta');
