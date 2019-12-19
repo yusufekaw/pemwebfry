@@ -10,22 +10,21 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ url('peta') }}">Home <span class="sr-only">(current)</span></a>
+      <li>
+        <a class="nav-link" href="{{ url('peta?latitude='.$latitude_user.'&longitude='.$longitude_user) }}">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ url('daftarlokasi?latitude='.$latitude_user.'&longitude='.$longitude_user) }}">Daftar Lokasi</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
+      <li>
+        <a class="nav-link" href="{{ url('saran-lokasi?latitude='.$latitude_user.'&longitude='.$longitude_user) }}">Sarankan Lokasi</a>
       </li>
       
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="{{url('/peta/cari')}}" method="GET">
-      <input class="form-control mr-sm-2" type="search" placeholder="Cari Lokasi" name="cari" aria-label="Search" value="{{ old('cari') }}">
+    <form class="form-inline my-2 my-lg-0" action="{{ url('cari') }}" method="GET">
+      <input class="form-control mr-sm-2" type="search" placeholder="Cari Lokasi" name="keyword" aria-label="Search" value="{{ old('cari') }}">
+      <input type="hidden" name="latitude" value="{{ $latitude_user }}">
+      <input type="hidden" name="longitude" value="{{ $longitude_user }}">
       <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="CARI">
     </form>
   </div>

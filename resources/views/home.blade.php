@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+<script type="text/javascript">
+    window.location = "{{ url('admin/tambalban') }}";
+</script>
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 Use App\TambalBan;
+Use App\SaranTambalBan;
 
 use Intervention\Image\ImageManagerStatic as Image;
 use Carbon\Carbon;
@@ -28,6 +29,9 @@ class DashboardController extends Controller
     {
         //
         //
+        $sarantambalban = SaranTambalBan::all();
+        $data['sarantambalban'] = $sarantambalban;
+        $data['sarantambalbanhitung'] = $sarantambalban->count('id_tambal_ban');
         $data['rata_latitude'] = 0;
         $data['rata_longitude'] = 0;
         //cari id user login

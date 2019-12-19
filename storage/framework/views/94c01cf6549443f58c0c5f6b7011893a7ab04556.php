@@ -1,3 +1,7 @@
+<script type="text/javascript">
+    window.location = "<?php echo e(url('admin/tambalban')); ?>";
+</script>
+
 <?php $__env->startSection('content'); ?>
 <div class="container">
     <div class="row justify-content-center">

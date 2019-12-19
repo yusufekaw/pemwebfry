@@ -48,7 +48,10 @@
             </div-->
             <button class="btn btn-secondary" type="button" onclick="getLocation()">Share Lokasi Saya</button>
             <hr/>
-            <p class="mb-5">Kamu pemilik usaha tambal ban? share lokasi tambal banmu <a class="text text-success" href="">disini</a>.</p>
+            <p class="mb-5">
+              Kamu pemilik usaha tambal ban? share lokasi tambal banmu 
+              <a class="text text-success" href="{{ route('register') }}">disini</a>.
+            </p>
           </div>
         </div>
       </div>

@@ -11,21 +11,24 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Auth::routes();
 
 //admin
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'WebController@depan')->name('/');
 
 Route::get('admin', 'Admin\DashboardController@index')->name('admin');
 
 Route::get('admin/tambalban', 'Admin\TambalBanController@index')->name('admin/tambalban');
 Route::get('admin/tambalban/tambah', 'Admin\TambalBanController@create')->name('admin/tambalban/tambah');
+Route::get('admin/tambalban/tambah/{id}', 'Admin\TambalBanController@create2')->name('admin/tambalban/tambah/{id}');
 Route::post('admin/tambalban/simpan', 'Admin\TambalBanController@store')->name('admin/tambalban/simpan');
+Route::post('admin/tambalban/simpan/saran', 'Admin\TambalBanController@store2')->name('admin/tambalban/simpan/saran');
 Route::get('admin/tambalban/sunting/{id}', 'Admin\TambalBanController@edit')->name('admin/tambalban/ubah/{id}');
 Route::post('admin/tambalban/perbarui/{id}', 'Admin\TambalBanController@update')->name('admin/tambalban/perbarui/{id}');
 Route::get('admin/tambalban/detail/{id}', 'Admin\TambalBanController@show');
@@ -53,5 +56,9 @@ Route::get('peta', 'WebController@peta');
 //Route::get('peta2', 'WebController@peta');
 //Route::get('peta/daftarlokasi', 'WebController@daftar');
 Route::get('daftarlokasi', 'WebController@daftarlokasi');
-Route::get('peta/cari', 'WebController@cari');
+Route::get('cari', 'WebController@cari');
+Route::get('saran-lokasi', 'WebController@saran');
+Route::post('simpan-saran', 'WebController@simpansaran');
 // Route::post('peta', 'WebController@peta')->name('peta');
+
+Route::get('refreshcaptcha', 'WebController@refreshCaptcha');

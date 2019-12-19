@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\SaranTambalBan;
 use App\JamOperasional;
 use Illuminate\Http\Request;
 
@@ -81,6 +82,7 @@ class JamOperasionalController extends Controller
     {
         //
         $data = [
+            'sarantambalban' => SaranTambalBan::all()->count();
             'judul' => 'Sunting jam operasional ',
             'jam_operasional' => JamOperasional::where('id_tambal_ban',$id)->get()
         ];

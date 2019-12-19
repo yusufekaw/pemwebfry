@@ -177,6 +177,7 @@ return [
 
         App\Providers\DayServiceProvider::class,
         App\Providers\HaversineServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
 
     ],
 
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Day' => App\Helpers\Day::class,
         'Haversine' => App\Helpers\Haversine::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 
